@@ -12,8 +12,8 @@ resource "aws_lb" "rails_alb" {
 }
 
 resource "aws_lb_target_group" "rails_tg" {
-  name        = "rails-store-tg"
-  port        = 3000
+  name        = "rails-store-tg-nginx"
+  port        = 80
   protocol    = "HTTP"
   target_type = "instance"
 
@@ -27,6 +27,9 @@ resource "aws_lb_target_group" "rails_tg" {
     timeout             = 5
     healthy_threshold   = 2
     unhealthy_threshold = 3
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
 

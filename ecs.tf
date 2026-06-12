@@ -91,13 +91,14 @@ resource "aws_ecs_task_definition" "rails" {
       name  = "rails-app"
       image = "${aws_ecr_repository.store_app.repository_url}:latest"
 
-      cpu    = 256
-      memory = 512
+      cpu    = 512
+      memory = 700
 
       portMappings = [
         {
-          containerPort = 3000
+          containerPort = 80
           hostPort      = 0
+          protocol      = "tcp"
         }
       ]
 
@@ -152,10 +153,14 @@ resource "aws_ecs_service" "rails" {
   deployment_minimum_healthy_percent = 0
   deployment_maximum_percent         = 200
 
+  # Forces ECS to stop the old task (port 3000) and start the new one (port 80)
+  # Without this, AWS tries to update in-place and hits the port mismatch error
+  force_new_deployment = true
+
   load_balancer {
     target_group_arn = aws_lb_target_group.rails_tg.arn
     container_name   = "rails-app"
-    container_port   = 3000
+    container_port   = 80
   }
 
   depends_on = [
