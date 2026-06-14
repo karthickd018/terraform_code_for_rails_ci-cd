@@ -3,6 +3,7 @@ resource "random_id" "artifact_bucket" {
 }
 
 resource "aws_s3_bucket" "artifact_bucket" {
+  force_destroy = true
   bucket = "rails-store-artifacts-${random_id.artifact_bucket.hex}"
 }
 resource "aws_s3_bucket_versioning" "artifact_bucket_versioning" {
