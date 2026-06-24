@@ -1,10 +1,6 @@
-resource "random_id" "source_bucket" {
-  byte_length = 4
-}
-
 resource "aws_s3_bucket" "source_bucket" {
   force_destroy = true
-  bucket = "rails-store-source-${random_id.source_bucket.hex}"
+  bucket        = "rails-store-source-karthickcloud"
 
 }
 resource "aws_s3_bucket_versioning" "source_bucket_versioning" {

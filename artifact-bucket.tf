@@ -1,10 +1,6 @@
-resource "random_id" "artifact_bucket" {
-  byte_length = 4
-}
-
 resource "aws_s3_bucket" "artifact_bucket" {
   force_destroy = true
-  bucket = "rails-store-artifacts-${random_id.artifact_bucket.hex}"
+  bucket        = "rails-store-artifacts-karthickcloud"
 }
 resource "aws_s3_bucket_versioning" "artifact_bucket_versioning" {
   bucket = aws_s3_bucket.artifact_bucket.id

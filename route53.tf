@@ -1,9 +1,9 @@
-data "aws_route53_zone" "main" {
-  zone_id = "Z0326993CH1V95A88MLF"
+resource "aws_route53_zone" "main" {
+  name = "karthickcloud.tech"
 }
 
 resource "aws_route53_record" "app" {
-  zone_id = data.aws_route53_zone.main.zone_id
+  zone_id = aws_route53_zone.main.zone_id
   name    = "store"
   type    = "A"
 
