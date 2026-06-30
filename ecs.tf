@@ -141,6 +141,8 @@ resource "aws_ecs_service" "rails" {
   desired_count   = 1
   launch_type     = "EC2"
 
+  enable_execute_command = true 
+
   # Health check grace period
   health_check_grace_period_seconds = 180
 
